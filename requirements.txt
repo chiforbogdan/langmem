@@ -1,0 +1,7 @@
+langchain>=0.3
+langchain-anthropic>=0.3
+langgraph>=0.2
+langmem>=0.0.15
+anthropic
+python-dotenv
+rich

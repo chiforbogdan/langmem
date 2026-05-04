@@ -1,6 +1,9 @@
 # Implementation Tasks
 
 Each task is a separate git branch off `main`.
+After implementing each task wait until the user approves the code.
+Make simple changes and do not promote bloated code.
+After implementing one feature make sure this document is updated accordingly.
 
 ---
 
