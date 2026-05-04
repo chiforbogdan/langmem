@@ -1,10 +1,10 @@
-from langchain_anthropic import ChatAnthropic
+from langchain_groq import ChatGroq
 from langgraph.prebuilt import create_react_agent
 
 from memory.procedural import load_system_prompt
 from tools.memory_tools import memory_tools
 
-_llm = ChatAnthropic(model="claude-sonnet-4-6", temperature=0)
+_llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
 
 
 async def run_agent(messages: list) -> str:
