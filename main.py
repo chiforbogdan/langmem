@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from rich.console import Console
 
 from agent import run_agent
+from background.processor import extract_episodes
 from memory.procedural import load_system_prompt, optimize_prompt
 from memory.store import store
 
@@ -51,6 +52,7 @@ async def chat():
             continue
         if user_input.lower() in ("exit", "quit"):
             if messages:
+                await extract_episodes(messages)
                 console.print("\n[dim]Updating system prompt...[/dim]")
                 new_prompt = await optimize_prompt(messages, load_system_prompt())
                 console.print(f"[dim]Prompt updated: {new_prompt[:80]}...[/dim]")
