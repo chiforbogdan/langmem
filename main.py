@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from rich.console import Console
 
 from agent import run_agent
+from background.processor import extract_episodes
 
 load_dotenv()
 
@@ -18,6 +19,7 @@ async def chat():
         if not user_input:
             continue
         if user_input.lower() in ("exit", "quit"):
+            await extract_episodes(messages)
             console.print("[dim]Goodbye.[/dim]")
             break
         messages.append({"role": "user", "content": user_input})
