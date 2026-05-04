@@ -1,0 +1,12 @@
+[project]
+name = "langmem-chatbot"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=0.3",
+    "langchain-groq>=0.2",
+    "langgraph>=0.2",
+    "langmem>=0.0.15",
+    "python-dotenv",
+    "rich",
+]

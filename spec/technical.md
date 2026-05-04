@@ -4,12 +4,13 @@
 
 | Layer       | Library / tool                        |
 |---|---|
-| LLM         | `langchain-anthropic` → `ChatAnthropic(model="claude-sonnet-4-6")` |
+| LLM         | `langchain-groq` → `ChatGroq(model="llama-3.3-70b-versatile")` |
 | Agent       | `langgraph` → `create_react_agent`    |
 | Memory      | `langmem`                             |
 | Store       | `langgraph.store.memory.InMemoryStore` |
 | CLI output  | `rich`                                |
 | Config      | `python-dotenv` → `.env` file         |
+| Packaging   | `uv` — dependency management and runner |
 
 ---
 
@@ -142,7 +143,19 @@ All are in the top-level `langmem` package.
 ## Environment
 
 ```
-ANTHROPIC_API_KEY=   # required
+GROQ_API_KEY=   # required
 ```
 
 Copy `.env.example` to `.env` and fill in the key.
+
+---
+
+## Running with uv
+
+```bash
+# Install dependencies
+uv sync
+
+# Run the chatbot
+uv run python main.py
+```
