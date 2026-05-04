@@ -59,18 +59,7 @@ After implementing one feature make sure this document is updated accordingly.
 
 ---
 
-## 6 — `feature/background-processor`
-
-**File:** `background/processor.py`
-
-- Define `EpisodicNote` Pydantic model (`situation`, `thought`, `outcome`)
-- Implement `async extract_episodes(messages)` using `create_memory_manager`
-- Write extracted episodes to `("episodes",)` namespace
-- Print extracted memories to stdout so they are visible when the session ends
-
----
-
-## 7 — `feature/procedural-memory`
+## 6 — `feature/procedural-memory`
 
 **File:** `memory/procedural.py`
 
@@ -81,11 +70,23 @@ After implementing one feature make sure this document is updated accordingly.
 
 ---
 
-## 8 — `feature/cli-full`
+## 7 — `feature/cli-full`
 
 **File:** `main.py`
 
 - Expand cli-skeleton with memory-aware features
 - Print startup banner showing loaded memories and current system prompt
 - `/memory` command: print all items in `("user", "facts")` and `("episodes",)` namespaces
-- `exit` / `quit`: run `extract_episodes` + `optimize_prompt`, print summary, exit
+- `exit` / `quit`: run `optimize_prompt`, print summary, exit
+
+---
+
+## 8 — `feature/background-processor`
+
+**File:** `background/processor.py`
+
+- Define `EpisodicNote` Pydantic model (`situation`, `thought`, `outcome`)
+- Implement `async extract_episodes(messages)` using `create_memory_manager`
+- Write extracted episodes to `("episodes",)` namespace
+- Print extracted memories to stdout so they are visible when the session ends
+- Wire into `main.py`: call on exit alongside `optimize_prompt`
