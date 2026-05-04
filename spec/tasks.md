@@ -48,7 +48,18 @@ After implementing one feature make sure this document is updated accordingly.
 
 ---
 
-## 5 — `feature/background-processor`
+## 5 — `feature/cli-skeleton`
+
+**File:** `main.py`
+
+- Load `.env`
+- Input loop: read user message → call agent → print response
+- `exit` / `quit`: exit cleanly
+- No memory commands yet — just enough to test the agent end-to-end
+
+---
+
+## 6 — `feature/background-processor`
 
 **File:** `background/processor.py`
 
@@ -59,23 +70,22 @@ After implementing one feature make sure this document is updated accordingly.
 
 ---
 
-## 6 — `feature/procedural-memory`
+## 7 — `feature/procedural-memory`
 
 **File:** `memory/procedural.py`
 
-- `load_system_prompt()` → reads `system_prompt.txt`, falls back to default
+- Expand the stub added in task 4 with full procedural memory support
 - `save_system_prompt(prompt)` → writes `system_prompt.txt`
 - `async optimize_prompt(messages, current_prompt)` → runs `PromptOptimizer`
   with `kind="metaprompt"`, saves and returns the updated prompt
 
 ---
 
-## 7 — `feature/cli`
+## 8 — `feature/cli-full`
 
 **File:** `main.py`
 
-- Load `.env`
+- Expand cli-skeleton with memory-aware features
 - Print startup banner showing loaded memories and current system prompt
-- Input loop: read user message → call agent → print response
 - `/memory` command: print all items in `("user", "facts")` and `("episodes",)` namespaces
 - `exit` / `quit`: run `extract_episodes` + `optimize_prompt`, print summary, exit
