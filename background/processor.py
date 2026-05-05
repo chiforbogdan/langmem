@@ -10,6 +10,8 @@ console = Console()
 
 
 class EpisodicNote(BaseModel):
+    """A notable episode from the conversation worth remembering."""
+
     situation: str
     thought: str
     outcome: str

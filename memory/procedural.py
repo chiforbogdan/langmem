@@ -23,7 +23,7 @@ def save_system_prompt(prompt: str) -> None:
 
 
 async def optimize_prompt(messages: list, current_prompt: str) -> str:
-    llm = ChatGroq(model="qwen/qwen3-32b", temperature=0)
+    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
     optimizer = create_prompt_optimizer(llm, kind="metaprompt")
     new_prompt = await optimizer.ainvoke(
         {"trajectories": [(messages, {})], "prompt": current_prompt}

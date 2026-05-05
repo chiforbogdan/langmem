@@ -1,6 +1,7 @@
 import asyncio
 import json
 import sqlite3
+import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
@@ -22,6 +23,7 @@ DB_PATH = Path(__file__).parent.parent / "memory.db"
 
 class SqliteStore(BaseStore):
     def __init__(self, path: Path = DB_PATH):
+        self._lock = threading.Lock()
         self._conn = sqlite3.connect(str(path), check_same_thread=False)
         self._conn.execute("""
             CREATE TABLE IF NOT EXISTS store (
@@ -42,6 +44,7 @@ class SqliteStore(BaseStore):
         if isinstance(op, PutOp):
             ns = self._ns(op.namespace)
             if op.value is None:
+                print(f"DELETE key {ns} {op.key}")
                 self._conn.execute(
                     "DELETE FROM store WHERE namespace=? AND key=?", (ns, op.key)
                 )
@@ -107,7 +110,8 @@ class SqliteStore(BaseStore):
         return None
 
     def batch(self, ops: Iterable[Op]) -> list[Result]:
-        return [self._handle(op) for op in ops]
+        with self._lock:
+            return [self._handle(op) for op in ops]
 
     async def abatch(self, ops: Iterable[Op]) -> list[Result]:
         ops = list(ops)

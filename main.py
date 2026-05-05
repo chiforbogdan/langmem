@@ -12,7 +12,8 @@ load_dotenv()
 
 console = Console()
 messages = []
-
+# Short-term memory limit
+stm_limit = 100
 
 def print_banner():
     console.print("\n[bold green]LangMem Chatbot[/bold green]")
@@ -42,6 +43,8 @@ def print_memory():
 
 
 async def chat():
+    global messages
+    global stm_limit
     print_banner()
     while True:
         user_input = input("> ").strip()
@@ -49,6 +52,11 @@ async def chat():
             continue
         if user_input.lower() == "/memory":
             print_memory()
+            continue
+        if user_input.lower().startswith("/stm-limit"):
+            tokens = user_input.lower().split(" ")
+            stm_limit = int(tokens[1])
+            console.print(f"Short term memory limit change to {stm_limit}")
             continue
         if user_input.lower() in ("exit", "quit"):
             if messages:
@@ -58,7 +66,11 @@ async def chat():
                 console.print(f"[dim]Prompt updated: {new_prompt[:80]}...[/dim]")
             console.print("[dim]Goodbye.[/dim]")
             break
+        if len(messages) >= stm_limit:
+            messages = messages[(len(messages) - stm_limit + 1):]
         messages.append({"role": "user", "content": user_input})
+        console.print(f"[italic]Short term memory context len: {len(messages)}[/italic]")
+
         reply = await run_agent(messages)
         messages.append({"role": "assistant", "content": reply})
         console.print(f"\n[bold cyan]Agent:[/bold cyan] {reply}\n")
