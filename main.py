@@ -66,6 +66,9 @@ async def chat():
                 console.print(f"[dim]Prompt updated: {new_prompt[:80]}...[/dim]")
             console.print("[dim]Goodbye.[/dim]")
             break
+        if user_input.lower() == "/clear":
+            messages = []
+            continue
         if len(messages) >= stm_limit:
             messages = messages[(len(messages) - stm_limit + 1):]
         messages.append({"role": "user", "content": user_input})
